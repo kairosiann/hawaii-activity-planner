@@ -1,0 +1,10 @@
+{
+  "buildCommand": "pnpm install && pnpm build",
+  "startCommand": "pnpm start",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret",
+    "NODE_ENV": "production"
+  }
+}
+
