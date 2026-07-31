@@ -1,0 +1,33 @@
+name: Deploy to Manus
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Deploy to Manus
+        env:
+          MANUS_HAWAII: ${{ secrets.MANUS_HAWAII }}
+          MANUS_HAWAIIPROJECT_ID: ${{ secrets.MANUS_HAWAII_PROJECT_ID }}
+        run: |
+          echo "Deploying to Manus..."
+          echo "Project ID: $MANUS_HAWAII_PROJECT_ID"
+          
+          # Create a deployment trigger
+          curl -X POST "https://api.manus.im/v1/projects/$MANUS_HAWAII_PROJECT_ID/deployments" \
+            -H "Authorization: Bearer $MANUS_HAWAII" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "source": "github",
+              "branch": "main",
+              "message": "Auto-deploy from GitHub"
+            }' \
+            -w "\nHTTP Status: %{http_code}\n"
