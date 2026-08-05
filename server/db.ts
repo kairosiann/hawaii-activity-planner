@@ -1,4 +1,4 @@
-import { eq, and } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, activities, InsertActivity, participants, comments } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -16,6 +16,19 @@ export async function getDb() {
     }
   }
   return _db;
+}
+
+export async function checkDatabaseConnection(): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+
+  try {
+    await db.execute(sql`select 1`);
+    return true;
+  } catch (error) {
+    console.error("[Database] Health check failed:", error);
+    return false;
+  }
 }
 
 export async function upsertUser(user: InsertUser): Promise<void> {
