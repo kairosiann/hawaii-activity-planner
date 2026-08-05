@@ -1,11 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "express",
+  "framework": "vite",
   "buildCommand": "pnpm build:client",
+  "outputDirectory": "public",
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/index.html"
+      "source": "/api/:path*",
+      "destination": "/api"
     },
     {
       "source": "/404",
