@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import { createApp } from "./server/app";
+import { createApp } from "./server/app.js";
 
 // Vercel detects this root entry point and invokes the Express app as a
 // request-driven function. Do not call listen() in this module.

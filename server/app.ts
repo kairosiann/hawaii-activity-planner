@@ -4,11 +4,11 @@ import express, {
   type Express,
   type RequestHandler,
 } from "express";
-import { appRouter } from "./routers";
-import { checkDatabaseConnection } from "./db";
-import { createContext } from "./_core/context";
-import { registerOAuthRoutes } from "./_core/oauth";
-import { registerStorageProxy } from "./_core/storageProxy";
+import { appRouter } from "./routers.js";
+import { checkDatabaseConnection } from "./db.js";
+import { createContext } from "./_core/context.js";
+import { registerOAuthRoutes } from "./_core/oauth.js";
+import { registerStorageProxy } from "./_core/storageProxy.js";
 
 const healthHandler: RequestHandler = async (_req, res) => {
   const databaseConfigured = Boolean(process.env.DATABASE_URL);
