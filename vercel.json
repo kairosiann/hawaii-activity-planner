@@ -1,10 +1,16 @@
 {
-  "buildCommand": "pnpm install && pnpm build",
-  "startCommand": "pnpm start",
-  "env": {
-    "DATABASE_URL": "@database_url",
-    "JWT_SECRET": "@jwt_secret",
-    "NODE_ENV": "production"
-  }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "pnpm build:client",
+  "outputDirectory": "public",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api"
+    },
+    {
+      "source": "/404",
+      "destination": "/index.html"
+    }
+  ]
 }
-
