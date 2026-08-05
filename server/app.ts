@@ -32,12 +32,11 @@ const errorHandler: ErrorRequestHandler = (error, _req, res, next) => {
 };
 
 /**
- * Create the request handler without opening a port. Vercel imports this app
- * as a function, while the local entry point attaches it to an HTTP server.
+ * Configure a request handler without opening a port. Vercel passes in the
+ * Express app created by its root entry point, while local development uses
+ * the default app created here and attaches it to an HTTP server.
  */
-export function createApp(): Express {
-  const app = express();
-
+export function createApp(app: Express = express()): Express {
   app.disable("x-powered-by");
   app.set("trust proxy", 1);
   app.use(express.json({ limit: "50mb" }));
